@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subtitle Toolbox — fix encoding, retime, convert and check SRT/VTT/ASS in your browser</title>
+<meta name="description" content="Free, private subtitle tools that run entirely in your browser: fix garbled Hebrew, Arabic, Cyrillic or Greek subtitles, shift or stretch timing, convert SRT, VTT and ASS, and check reading speed and overlaps. Nothing is uploaded.">
+<link rel="canonical" href="https://auto-subs-for-stremio.github.io/Stremio-Addon/subtitles-tools/subtitle-toolbox/">
+<meta property="og:title" content="Subtitle Toolbox">
+<meta property="og:description" content="Fix garbled subtitles, retime, convert SRT/VTT/ASS and lint timing. Free, in your browser, nothing uploaded.">
+<meta property="og:type" content="website">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Subtitle Toolbox","applicationCategory":"MultimediaApplication","operatingSystem":"Any (browser)","url":"https://auto-subs-for-stremio.github.io/Stremio-Addon/subtitles-tools/subtitle-toolbox/","description":"Free, private subtitle tools that run entirely in your browser: fix garbled Hebrew, Arabic, Cyrillic or Greek subtitles, shift or stretch timing, convert SRT, VTT and ASS, and check reading speed and overlaps.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Organization","name":"Auto-Subs","url":"https://auto-subs.com/"},"isAccessibleForFree":true}</script>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #08080f; --surface: #12131f; --surface-2: #181a2b; --ink: #f4f5fb; --ink-soft: #9b9dc0; --ink-muted: #6f7195;
+    --line: #23243d; --cyan: #49e0e7; --violet: #a276ff; --ok: #4ade80; --warn: #fab219; --err: #ff6b6b;
+    --display: 'Sora', -apple-system, "Segoe UI", sans-serif; --sans: 'Manrope', -apple-system, "Segoe UI", sans-serif; --mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  a { color: var(--cyan); }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 22px; }
+  header { padding: 26px 0 18px; border-bottom: 1px solid var(--line); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); }
+  .brand img { width: 44px; height: 44px; border-radius: 12px; }
+  .brand b { font-family: var(--display); font-size: 1.1rem; }
+  .brand span { display: block; font-size: 0.78rem; color: var(--ink-muted); }
+  .privacy { font-size: 0.8rem; color: var(--ink-soft); font-family: var(--mono); }
+  .privacy .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--ok); margin-right: 6px; }
+  main { padding: 34px 0 80px; }
+  h1 { font-family: var(--display); font-size: 1.8rem; margin: 0 0 6px; }
+  .lede { color: var(--ink-soft); margin: 0 0 22px; max-width: 760px; }
+  /* drop zone */
+  .drop { display: block; border: 1.5px dashed var(--line); border-radius: 14px; padding: 28px; text-align: center; background: var(--surface); cursor: pointer; transition: border-color .15s, background .15s; }
+  .drop.over { border-color: var(--cyan); background: var(--surface-2); }
+  .drop input { display: none; }
+  .drop .big { font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
+  .drop .small { color: var(--ink-muted); font-size: 0.85rem; margin-top: 4px; }
+  .file-meta { display: flex; gap: 18px; flex-wrap: wrap; font-family: var(--mono); font-size: 0.78rem; color: var(--ink-soft); margin: 12px 0 0; }
+  .file-meta b { color: var(--ink); font-weight: 600; }
+  /* tabs */
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 28px 0 14px; }
+  .tabs button { background: var(--surface); color: var(--ink-soft); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; font-family: var(--sans); font-size: 0.88rem; cursor: pointer; }
+  .tabs button.active { color: var(--ink); border-color: var(--cyan); background: var(--surface-2); }
+  .tabs button[disabled] { opacity: .45; cursor: default; }
+  .panel { display: none; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); padding: 22px; }
+  .panel.active { display: block; }
+  .panel h2 { font-family: var(--display); font-size: 1.05rem; margin: 0 0 6px; }
+  .panel .help { color: var(--ink-soft); font-size: 0.9rem; margin: 0 0 16px; }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; margin-bottom: 14px; }
+  label.f { display: flex; flex-direction: column; gap: 5px; font-size: 0.8rem; color: var(--ink-soft); }
+  input[type=number], input[type=text], select { background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; font-family: var(--mono); font-size: 0.88rem; min-width: 150px; }
+  .btn { background: var(--surface-2); color: var(--ink); border: 1px solid var(--line); border-radius: 9px; padding: 9px 14px; font-family: var(--sans); font-size: 0.88rem; cursor: pointer; }
+  .btn:hover { border-color: var(--cyan); }
+  .btn.primary { background: linear-gradient(120deg, var(--cyan), var(--violet)); color: #050508; font-weight: 700; border: 0; }
+  .btn[disabled] { opacity: .45; cursor: default; }
+  .note { font-size: 0.82rem; color: var(--ink-muted); }
+  .status { font-family: var(--mono); font-size: 0.8rem; color: var(--ink-soft); margin: 10px 0 0; min-height: 1.2em; }
+  .status.ok { color: var(--ok); } .status.warn { color: var(--warn); } .status.err { color: var(--err); }
+  .preview { margin-top: 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-family: var(--mono); font-size: 0.8rem; white-space: pre-wrap; max-height: 260px; overflow: auto; color: var(--ink-soft); }
+  .preview.rtl { direction: rtl; text-align: right; }
+  .cands { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px; margin: 8px 0 12px; }
+  .cand { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; cursor: pointer; background: var(--bg); }
+  .cand.sel { border-color: var(--cyan); }
+  .cand .n { font-size: 0.8rem; color: var(--ink); }
+  .cand .s { font-family: var(--mono); font-size: 0.74rem; color: var(--ink-muted); margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cand .s.rtl { direction: rtl; }
+  table.lint { width: 100%; border-collapse: collapse; font-size: 0.82rem; margin-top: 10px; }
+  table.lint th, table.lint td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  table.lint th { font-family: var(--mono); font-size: 0.68rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-muted); font-weight: 500; }
+  .lvl-error { color: var(--err); } .lvl-warn { color: var(--warn); } .lvl-info { color: var(--ink-muted); }
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 6px 0 12px; }
+  .chip { font-family: var(--mono); font-size: 0.74rem; border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; color: var(--ink-soft); }
+  .checks { display: flex; flex-direction: column; gap: 8px; margin: 0 0 14px; }
+  .checks label { font-size: 0.9rem; color: var(--ink-soft); display: flex; gap: 8px; align-items: center; }
+  footer { border-top: 1px solid var(--line); padding: 26px 0; color: var(--ink-muted); font-size: 0.82rem; }
+  footer .wrap { display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; }
+  @media (max-width: 600px) { .panel { padding: 16px; } input[type=number], input[type=text], select { min-width: 120px; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="./"><img src="https://auto-subs.com/assets/logo.png" alt=""><span><b>Subtitle Toolbox</b><span>by Auto-Subs · free · open source · giving back to the subtitle community</span></span></a>
+    <div class="privacy"><span class="dot"></span>Runs in your browser. Nothing is uploaded.</div>
+  </div>
+</header>
+<main>
+  <div class="wrap">
+    <h1>Fix, retime, convert and check subtitle files</h1>
+    <p class="lede">Drop an SRT, VTT or ASS file. Garbled Hebrew, Arabic, Cyrillic or Greek text gets its encoding repaired, timing can be shifted or stretched to match your video, formats convert both ways, and a quick check finds overlaps and lines that are too fast to read. Every tool works offline on your own machine.</p>
+
+    <label class="drop" id="drop">
+      <input type="file" id="file" accept=".srt,.vtt,.ass,.ssa,.txt,.sub">
+      <div class="big">Drop a subtitle file here, or click to choose</div>
+      <div class="small">SRT · VTT · ASS/SSA · any encoding · up to a few MB</div>
+    </label>
+    <div class="file-meta" id="meta" hidden></div>
+
+    <div class="tabs" id="tabs">
+      <button data-tab="encoding" disabled>Fix encoding</button>
+      <button data-tab="timing" disabled>Shift / retime</button>
+      <button data-tab="convert" disabled>Convert</button>
+      <button data-tab="rtl" disabled>Hebrew / Arabic</button>
+      <button data-tab="check" disabled>Check quality</button>
+    </div>
+
+    <section class="panel" id="panel-encoding">
+      <h2>Fix encoding</h2>
+      <p class="help">Subtitles that show as boxes, question marks or "×©×œ×•×" were saved in a legacy code page or decoded twice. Pick the reading that looks right; the download is clean UTF-8, which every player understands.</p>
+      <div class="cands" id="cands"></div>
+      <div class="row">
+        <label class="f">Encoding <select id="encSel"></select></label>
+        <button class="btn" id="btnRepairDouble">Try double-encoding repair</button>
+        <label class="f" style="flex-direction:row; align-items:center; gap:8px; padding-bottom:6px;"><input type="checkbox" id="bom"> Add UTF-8 BOM (old players / Windows tools)</label>
+      </div>
+      <div class="status" id="encStatus"></div>
+      <div class="preview" id="encPreview"></div>
+      <div class="row" style="margin-top:14px;"><button class="btn primary" id="dlEnc">Download as UTF-8</button></div>
+    </section>
+
+    <section class="panel" id="panel-timing">
+      <h2>Shift or retime</h2>
+      <p class="help">Subtitles early or late by a fixed amount? Shift them. Drifting more and more as the film goes on? That is a different cut or frame rate: give two anchor points, or pick the frame rates, and everything in between is stretched to match.</p>
+      <div class="row">
+        <label class="f">Shift (ms, negative = earlier) <input type="number" id="shiftMs" value="0" step="100"></label>
+        <button class="btn" id="btnShift">Apply shift</button>
+      </div>
+      <div class="row">
+        <label class="f">Cue currently at (hh:mm:ss,ms) <input type="text" id="fromA" placeholder="00:01:00,000"></label>
+        <label class="f">should be at <input type="text" id="toA" placeholder="00:01:02,000"></label>
+        <label class="f">and cue at <input type="text" id="fromB" placeholder="01:30:00,000"></label>
+        <label class="f">should be at <input type="text" id="toB" placeholder="01:33:00,000"></label>
+        <button class="btn" id="btnRetime">Apply two-point retime</button>
+      </div>
+      <div class="row">
+        <label class="f">From fps <select id="fpsFrom"><option>23.976</option><option>24</option><option selected>25</option><option>29.97</option><option>30</option></select></label>
+        <label class="f">To fps <select id="fpsTo"><option selected>23.976</option><option>24</option><option>25</option><option>29.97</option><option>30</option></select></label>
+        <button class="btn" id="btnFps">Convert frame rate</button>
+        <button class="btn" id="btnResetTiming">Reset to original</button>
+      </div>
+      <div class="status" id="timeStatus"></div>
+      <div class="preview" id="timePreview"></div>
+      <div class="row" style="margin-top:14px;"><button class="btn primary" id="dlTime">Download</button></div>
+    </section>
+
+    <section class="panel" id="panel-convert">
+      <h2>Convert</h2>
+      <p class="help">SRT is what most players and Stremio want. ASS files from anime releases convert to plain SRT (styling and positioning are dropped, text and timing kept). VTT is for web players.</p>
+      <div class="row">
+        <label class="f">Output format <select id="fmtSel"><option value="srt">SRT</option><option value="vtt">WebVTT</option><option value="ass">ASS</option></select></label>
+        <button class="btn primary" id="dlConv">Download</button>
+      </div>
+      <div class="status" id="convStatus"></div>
+      <div class="preview" id="convPreview"></div>
+    </section>
+
+    <section class="panel" id="panel-rtl">
+      <h2>Hebrew / Arabic</h2>
+      <p class="help">Two classic right-to-left problems. Punctuation at the wrong end of the line ("?מה קורה") is fixed by pinning each RTL line with direction marks that players honor. Text with every word spelled backwards comes from old tools that stored visual order; it can be flipped back.</p>
+      <div class="row">
+        <button class="btn" id="btnRtlPunct">Fix edge punctuation</button>
+        <button class="btn" id="btnReverse">Un-reverse words</button>
+        <button class="btn primary" id="dlRtl">Download</button>
+      </div>
+      <div class="status" id="rtlStatus"></div>
+      <div class="preview rtl" id="rtlPreview"></div>
+    </section>
+
+    <section class="panel" id="panel-check">
+      <h2>Check quality</h2>
+      <p class="help">Overlapping cues, cues too short to read, reading speed above 20 characters per second, lines over 42 characters, more than two lines, empty cues, and leftover encoding garbage.</p>
+      <div class="chips" id="checkChips"></div>
+      <div id="lintTable"></div>
+    </section>
+  </div>
+</main>
+<footer>
+  <div class="wrap">
+    <div>Part of Auto-Subs' contribution back to the subtitle community · MIT licensed · <a href="https://github.com/Auto-Subs-For-Stremio/Stremio-Addon/tree/main/subtitles-tools">source on GitHub</a> · report a problem in the issues.</div>
+    <div>Want subtitles in your language to just appear when you press play? <a href="https://auto-subs.com/">Auto-Subs for Stremio</a></div>
+  </div>
+</footer>
+<script type="module" src="./app.js"></script>
+</body>
+</html>

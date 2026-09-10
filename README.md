@@ -10,7 +10,8 @@
   <a href="https://auto-subs.com/">Website</a> ·
   <a href="https://auto-subs.com/install.html">Install guide</a> ·
   <a href="https://dash.auto-subs.com/">Your dashboard</a> ·
-  <a href="https://discord.gg/ncmNYGjwKj">Discord community</a>
+  <a href="https://discord.gg/ncmNYGjwKj">Discord community</a> ·
+  <a href="subtitles-tools/">Free subtitle tools</a>
 </p>
 
 <p align="center">
@@ -60,20 +61,31 @@ Pick the pass that matches how you actually watch. Every plan includes every lan
 
 | | **Free** | **Solo Feature** | **Binge Pass** |
 |---|:---:|:---:|:---:|
-| Price | $0 | **$2.99 / month**<br>or $29 / year (2 months free) | **$6.49 / month**<br>or $64.90 / year (2 months free) |
-| New translations | 3 during your first 7 days | **60 per month**, no daily cap | **200 per month**, no daily cap |
-| Already-translated titles | Unlimited | Unlimited | Unlimited |
+| Price | $0, free forever | **$2.99 / month**<br>or $29 / year (2 months free) | **$6.49 / month**<br>or $64.90 / year (2 months free) |
+| New translations | 3 during your first 7 days, then 1 every 30 days | **60 per month**, no daily cap | **200 per month**, no daily cap |
+| Already-translated titles | Unlimited in your first 7 days, then 10 every 30 days; re-watching your own titles is always free | Unlimited | Unlimited |
 | Devices | All | All | All |
-| Best for | Trying it tonight | About 10¢ a day, one film at a time | About 3¢ a title, whole seasons |
+| Best for | Trying it, and the occasional title | About 10¢ a day, one film at a time | About 3¢ a title, whole seasons |
 
 - **Top-ups:** 50 extra titles for $2.99, one-time, never expire.
 - **Referrals:** every friend who subscribes earns you 5 titles that never expire.
+- **Free plan availability:** based on the AI capacity allocated to free members.
 - **Failed translation?** The title is refunded to your allowance automatically.
 - Secure checkout, no credit card for the free plan, cancel anytime from [dash.auto-subs.com](https://dash.auto-subs.com/).
 
 <p align="center">
   <a href="https://dash.auto-subs.com/?plan=solo">Start Solo Feature</a> · <a href="https://dash.auto-subs.com/?plan=binge">Start Binge Pass</a>
 </p>
+
+---
+
+## Giving back: free subtitle tools (open source)
+
+We spend our days inside subtitle files, and a lot of what we learn is useful far beyond Auto-Subs. This is our way of giving something back to the subtitle and translation community: small, open-source tools that run entirely in your browser — nothing is uploaded — and help whether or not you ever install the addon.
+
+- **[Subtitle Toolbox](subtitles-tools/subtitle-toolbox/)** — fix garbled Hebrew, Arabic, Cyrillic or Greek encoding, shift or retime subtitles, convert SRT/VTT/ASS, and check reading speed and overlaps. [Open it →](https://auto-subs-for-stremio.github.io/Stremio-Addon/subtitles-tools/subtitle-toolbox/)
+
+More tools will land under [`subtitles-tools/`](subtitles-tools/) over time. MIT licensed; issues and pull requests welcome.
 
 ---
 

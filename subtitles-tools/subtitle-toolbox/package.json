@@ -1,0 +1,11 @@
+{
+  "name": "@auto-subs/subtitle-toolbox",
+  "version": "0.1.0",
+  "description": "Subtitle Toolbox — fix broken Hebrew/Arabic encoding, shift or retime subtitles, convert SRT/VTT/ASS, and lint timing, entirely in your browser.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "license": "MIT"
+}
