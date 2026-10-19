@@ -15,7 +15,7 @@
 </p>
 
 <p align="center">
-  <a href="https://auto-subs.com/install.html"><img src="https://img.shields.io/badge/Get%20my%20subtitles-3%20titles%20free-ffd400?style=for-the-badge" alt="Get my subtitles — 3 titles free"></a>
+  <a href="https://auto-subs.com/install.html"><img src="https://img.shields.io/badge/Get%20my%20subtitles-free%20to%20try-ffd400?style=for-the-badge" alt="Get my subtitles — free to try"></a>
 </p>
 
 ---
@@ -34,7 +34,7 @@ Once a title has been translated for one viewer, every viewer after that gets it
 
 | | |
 |---|---|
-| **🌍 32 languages** | Arabic, Hebrew, Spanish, Brazilian and European Portuguese, French, German, Hindi, Japanese, Korean, Turkish, Vietnamese and more. A language is only enabled after it passes the same quality testing as every other one. |
+| **🌍 30+ languages** | Arabic, Hebrew, Spanish, Brazilian and European Portuguese, French, German, Hindi, Japanese, Korean, Turkish, Vietnamese and more. A language is only enabled after it passes the same quality testing as every other one. |
 | **🚫 No ads inside your subtitles** | Every title is translated fresh from the original English file, so upload-site spam and translator promos never reach your screen. |
 | **👩‍🦰 Gender-correct dialogue** | Auto-Subs is built around the hardest problem in subtitle translation: who is speaking to whom. It attributes every line and translates *she said to him* correctly in languages where grammar demands it. |
 | **⏱ Original timing, untouched** | Only the words change. Every cue's timestamps pass through exactly as they were. |
@@ -55,27 +55,9 @@ Behind the scenes: two paid subtitle providers plus two community sources are se
 
 ---
 
-## Plans
+## Plans and pricing
 
-Pick the pass that matches how you actually watch. Every plan includes every language, and already-translated titles are always unlimited.
-
-| | **Free** | **Solo Feature** | **Binge Pass** |
-|---|:---:|:---:|:---:|
-| Price | $0, free forever | **$2.99 / month**<br>or $29 / year (2 months free) | **$6.49 / month**<br>or $64.90 / year (2 months free) |
-| New translations | 3 during your first 7 days, then 1 every 30 days | **60 per month**, no daily cap | **200 per month**, no daily cap |
-| Already-translated titles | Unlimited in your first 7 days, then 10 every 30 days; re-watching your own titles is always free | Unlimited | Unlimited |
-| Devices | All | All | All |
-| Best for | Trying it, and the occasional title | About 10¢ a day, one film at a time | About 3¢ a title, whole seasons |
-
-- **Top-ups:** 50 extra titles for $2.99, one-time, never expire.
-- **Referrals:** every friend who subscribes earns you 5 titles that never expire.
-- **Free plan availability:** based on the AI capacity allocated to free members.
-- **Failed translation?** The title is refunded to your allowance automatically.
-- Secure checkout, no credit card for the free plan, cancel anytime from [dash.auto-subs.com](https://dash.auto-subs.com/).
-
-<p align="center">
-  <a href="https://dash.auto-subs.com/?plan=solo">Start Solo Feature</a> · <a href="https://dash.auto-subs.com/?plan=binge">Start Binge Pass</a>
-</p>
+Every plan includes every language, and a title that was already translated for another viewer is served to you instantly. Current plans and prices are always on [auto-subs.com](https://auto-subs.com/#pricing); you can start, change or cancel from [dash.auto-subs.com](https://dash.auto-subs.com/).
 
 ---
 
@@ -93,7 +75,7 @@ More tools will land under [`subtitles-tools/`](subtitles-tools/) over time. MIT
 
 | | |
 |---|---|
-| Website | https://auto-subs.com/ (available in 32 languages, e.g. [עברית](https://auto-subs.com/he/), [العربية](https://auto-subs.com/ar/), [Español](https://auto-subs.com/es/)) |
+| Website | https://auto-subs.com/ (available in 30+ languages, e.g. [עברית](https://auto-subs.com/he/), [العربية](https://auto-subs.com/ar/), [Español](https://auto-subs.com/es/)) |
 | Install guide | https://auto-subs.com/install.html |
 | Dashboard, API key, billing | https://dash.auto-subs.com/ |
 | Discord community | https://discord.gg/ncmNYGjwKj |
